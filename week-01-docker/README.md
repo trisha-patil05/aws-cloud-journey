@@ -1,25 +1,28 @@
 # 🐳 Week 01 — Docker
 
-![Status](https://img.shields.io/badge/Status-Completed-green?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=flat-square)
 ![Tool](https://img.shields.io/badge/Tool-Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
-![Compose](https://img.shields.io/badge/Docker%20Compose-Multi--Container-46E3B7?style=flat-square)
+![Docker Hub](https://img.shields.io/badge/Docker%20Hub-trisha05%2Fweek01--docker--app-blue?style=flat-square&logo=docker)
 
 ---
 
 ## 🎯 What I Learned This Week
 
-Getting hands-on with Docker — understanding how containerization works, building images, running containers, and setting up multi-container environments using Docker Compose.
+Getting hands-on with Docker — understanding how containerization works, building images, running containers, multi-container environments using Docker Compose, and publishing images to Docker Hub.
 
 ---
 
 ## ✅ Progress
 
 - [x] Dockerfile created for Node.js app
-- [x] Docker image built successfully
+- [x] Multi-stage Dockerfile for optimized image size
+- [x] `.dockerignore` added to keep image clean
+- [x] Environment variables with `.env.example`
 - [x] Container running on port 3000
 - [x] Health endpoint working (`/health`)
 - [x] Docker Compose setup with Node.js + MongoDB
-- [x] Multi-container environment running locally
+- [x] Persistent volumes added for MongoDB data
+- [x] Docker image published to Docker Hub ✅
 
 ---
 
@@ -27,10 +30,12 @@ Getting hands-on with Docker — understanding how containerization works, build
 
 | File | Description |
 |------|-------------|
-| `Dockerfile` | Docker image instructions for Node.js app |
+| `Dockerfile` | Multi-stage Docker image for Node.js app |
 | `server.js` | Express server with `/` and `/health` endpoints |
 | `package.json` | App dependencies |
 | `docker-compose.yml` | Multi-container setup — Node.js + MongoDB |
+| `.dockerignore` | Files excluded from Docker image |
+| `.env.example` | Environment variables template |
 
 ---
 
@@ -56,23 +61,31 @@ docker compose up
 
 ---
 
-## 🚀 How to Run
+## 🐳 Docker Hub
 
-### Single Container (Dockerfile only):
+Image publicly available on Docker Hub:
+
+👉 https://hub.docker.com/r/trisha05/week01-docker-app
+
+### Pull and Run:
 ```bash
-# Build image
-docker build -t week01-app .
+docker pull trisha05/week01-docker-app:latest
+docker run -p 3000:3000 trisha05/week01-docker-app:latest
+```
 
-# Run container
+---
+
+## 🚀 How to Run Locally
+
+### Single Container:
+```bash
+docker build -t week01-app .
 docker run -p 3000:3000 week01-app
 ```
 
 ### Multi Container (Docker Compose):
 ```bash
-# Start all services
 docker compose up
-
-# Stop all services
 docker compose down
 ```
 
@@ -94,7 +107,7 @@ docker compose down
 {
   "message": "Hello from Docker Container!",
   "container": true,
-  "timestamp": "2026-06-14T10:00:00.000Z"
+  "timestamp": "2026-06-15T07:02:34.061Z"
 }
 ```
 
@@ -103,7 +116,7 @@ docker compose down
 {
   "status": "healthy",
   "uptime": 23,
-  "timestamp": "2026-06-14T10:00:23.000Z"
+  "timestamp": "2026-06-15T07:02:57.000Z"
 }
 ```
 
@@ -112,11 +125,12 @@ docker compose down
 ## 💡 Key Learnings
 
 - Docker packages app + dependencies into a portable container
-- `docker build` creates an image from Dockerfile
-- `docker run` starts a container from that image
+- Multi-stage builds reduce image size significantly
+- `.dockerignore` prevents unnecessary files from being copied
 - Docker Compose runs multiple containers together with one command
 - Containers communicate with each other inside a Docker network
 - MongoDB data persists using Docker volumes even after container stops
+- Docker Hub allows sharing images publicly with the world
 
 ---
 
